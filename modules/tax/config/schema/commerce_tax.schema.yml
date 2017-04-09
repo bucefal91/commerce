@@ -1,0 +1,59 @@
+commerce_tax.commerce_tax_type.*:
+  type: config_entity
+  label: 'Tax type'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    plugin:
+      type: string
+      label: 'Plugin'
+    configuration:
+      type: commerce_tax.commerce_tax_type.plugin.[%parent.plugin]
+
+commerce_tax.commerce_tax_type.plugin.*:
+  type: commerce_tax_type_configuration
+
+commerce_tax_type_configuration:
+  type: mapping
+  mapping:
+    display_inclusive:
+      type: boolean
+      label: 'Display taxes of this type inclusive in product prices'
+
+commerce_tax.commerce_tax_type.plugin.custom:
+  type: commerce_tax_type_configuration
+  mapping:
+    display_label:
+      type: string
+      label: 'Display label'
+    rounding_mode:
+      type: integer
+      label: 'Rounding mode'
+    rates:
+      type: sequence
+      label: 'Rates'
+      sequence:
+        type: mapping
+        mapping:
+          id:
+            type: string
+            label: 'ID'
+          label:
+            type: label
+            label: 'Label'
+          amount:
+            type: float
+            label: 'Amount'
+    territories:
+      type: sequence
+      label: 'Territories'
+      sequence:
+        type: mapping
+        mapping:
+          country_code:
+            type: string
+            label: 'Country'
